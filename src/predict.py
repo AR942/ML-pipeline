@@ -20,12 +20,6 @@ def get_metrics(y_test, predictions):
             'recall': round(recall, 2)}
 
 
-classifier =  pickle.load(open('../model/RDF_classifier.pkl', 'rb'))
-predictions = predict(classifier, test_normalized)
-get_metrics(y_test, predictions)
-cm = confusion_matrix(y_test, predictions)
-print(cm)
-
 def export_prediction(data, predict):
 
     date =  datetime.datetime.now().strftime("%Hh%M_%d-%m-%Y")
@@ -35,5 +29,12 @@ def export_prediction(data, predict):
     prediction_final = pd.DataFrame({"ID": index, "prediction_label": predict})
 
     prediction_final.to_csv(os.path.join(path, "predictions-"+ date +".csv"))
+
+
+classifier =  pickle.load(open('../model/RDF_classifier.pkl', 'rb'))
+predictions = predict(classifier, test_normalized)
+get_metrics(y_test, predictions)
+cm = confusion_matrix(y_test, predictions)
+print(cm)
 
 export_prediction(test_normalized, predictions)

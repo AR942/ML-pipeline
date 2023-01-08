@@ -20,14 +20,6 @@ def train_test_splitting(df, target):
                                                         random_state=42)
     return X_train, X_test, y_train, y_test
 
-X_train, X_test, y_train, y_test = train_test_splitting(dataset_clean, "TARGET")
-
-dataset_clean.shape
-
-print(X_train.shape)
-print(y_train.shape)
-print(X_test.shape)
-print(y_test.shape)
 
 def normalization_data(norm, data):
     
@@ -43,10 +35,6 @@ def normalization_data(norm, data):
     
     return data
 
-train_normalized = normalization_data(1, X_train)
-test_normalized = normalization_data(1, X_test)
-
-train_normalized
 
 def model_training(model, X_train, y_train):
     
@@ -58,6 +46,18 @@ def model_training(model, X_train, y_train):
 train = True
 
 if train:
+    X_train, X_test, y_train, y_test = train_test_splitting(dataset_clean, "TARGET")
+
+    dataset_clean.shape
+
+    print(X_train.shape)
+    print(y_train.shape)
+    print(X_test.shape)
+    print(y_test.shape)
+    
+    train_normalized = normalization_data(1, X_train)
+    test_normalized = normalization_data(1, X_test)
+    
     classifier = model_training(RandomForestClassifier(), train_normalized, y_train)
     pickle.dump(classifier, open("../model/RDF_classifier.pkl", 'wb'))
 
