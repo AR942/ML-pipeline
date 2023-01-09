@@ -6,9 +6,7 @@ from sklearn.ensemble import RandomForestClassifier
 from sklearn.metrics import confusion_matrix
 import pickle
 
-from features_engineering import dataset_clean
-
-dataset_clean
+"""from features_engineering import dataset_clean"""
 
 def train_test_splitting(df, target):
     
@@ -43,7 +41,7 @@ def model_training(model, X_train, y_train):
     return model
 
 
-train = True
+"""train = True
 
 if train:
     X_train, X_test, y_train, y_test = train_test_splitting(dataset_clean, "TARGET")
@@ -59,26 +57,10 @@ if train:
     test_normalized = normalization_data(1, X_test)
     
     classifier = model_training(RandomForestClassifier(), train_normalized, y_train)
-    pickle.dump(classifier, open("../model/RDF_classifier.pkl", 'wb'))
+    pickle.dump(classifier, open("../model/RDF_classifier.pkl", 'wb'))"""
 
 
-"""loaded_model = pickle.load(open(filename, 'rb'))"""
     
 
-"""def predict(model, data, y_test):
-    
-    predictions = model.predict(data)
-    cm = confusion_matrix(y_test, predictions)
-    return cm, predictions
 
-cm, predictions = predict(RDF_classifier, test_normalized, y_test)
-
-index = pd.DataFrame(test_normalized.index)
-predictions = pd.DataFrame(predictions)
-predictions = pd.concat([index, predictions], axis=1)
-
-submission = predictions.to_csv('/Users/arthusrouhi/Desktop/risk-classification/data/predictions.csv')
-
-cm"""
-    
     
