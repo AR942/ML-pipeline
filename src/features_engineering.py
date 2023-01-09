@@ -3,7 +3,7 @@ import sys
 from sklearn.impute import SimpleImputer
 from sklearn.preprocessing import StandardScaler, MinMaxScaler
 
-from data_preparation import dataset
+"""from data_preparation import dataset"""
 
 def missing_values(df):
     count = df.isnull().sum().values
@@ -42,7 +42,7 @@ def convert_column(column : pd.Series, type):
     column = column.astype(type)
     return column
 
-nan = missing_values(dataset).sort_values(["na_sum"], ascending=False)
+"""nan = missing_values(dataset).sort_values(["na_sum"], ascending=False)
 nan
 
 dataset = drop_nan30(dataset)
@@ -57,4 +57,4 @@ dataset_clean
 dataset_clean["TARGET"] = convert_column(dataset_clean["TARGET"], int)
 
 
-print(dataset_clean.shape)
+print(dataset_clean.shape)"""
