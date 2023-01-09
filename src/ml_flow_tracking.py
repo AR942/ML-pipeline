@@ -4,10 +4,10 @@ datetime.datetime.now()
 import mlflow
 from sklearn.metrics import accuracy_score,precision_score,recall_score
 
-from predict import get_metrics, predictions, run_metrics, classifier
+"""from predict import get_metrics, predictions, run_metrics, classifier"""
 
 
-def create_experiment(experiment_name,run_name, run_metrics, model, confusion_matrix_path, run_params = None):
+def create_experiment(experiment_name,run_name, run_metrics, model, confusion_matrix_path, run_params=None):
     
     mlflow.set_tracking_uri("http://127.0.0.1:5000")
     mlflow.set_experiment(experiment_name) 
@@ -37,7 +37,7 @@ def create_experiment(experiment_name,run_name, run_metrics, model, confusion_ma
     print('Run - %s is logged to Experiment - %s' %(run_name, experiment_name))
     
     
-date =  datetime.datetime.now().strftime("%Hh%M_%d-%m-%Y")   
+"""date =  datetime.datetime.now().strftime("%Hh%M_%d-%m-%Y")   
 experiment_name = "RDF_classifier"+ date
 run_name="RDF_classifier"+date
-create_experiment(experiment_name, run_name, run_metrics, classifier, '../output/confusion_matrix.png')
+create_experiment(experiment_name, run_name, run_metrics, classifier, '../output/confusion_matrix.png' )"""
