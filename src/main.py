@@ -7,6 +7,8 @@ import pickle
 import datetime
 from imblearn.under_sampling import RandomUnderSampler
 from collections import Counter
+import warnings
+warnings.filterwarnings("ignore")
 
 from make_dataset import get_dataframe, index_setting
 from data_preparation import map_function
@@ -19,7 +21,7 @@ while True:
     modelisation = str(input("Do you want to modelise a train or a test ? :\n"))
     try:
         assert modelisation in ["train", "test"]
-        print(f'You choosed to {modelisation} the model')
+        print(f'You choosed to {modelisation} the model...')
         break
     except AssertionError:
         pass
@@ -48,7 +50,7 @@ if modelisation == 'train':
     dataset_clean = remove_nan(dataset_dummies)
 
     dataset_clean["TARGET"] = convert_column(dataset_clean["TARGET"], int)
-    print(dataset_clean.shape)
+    print("training dataset shape:\n", dataset_clean.shape)
     
     
     to_drop = ["CODE_GENDER_XNA","NAME_FAMILY_STATUS_Unknown", "NAME_INCOME_TYPE_Maternity leave" ]
@@ -59,10 +61,11 @@ if modelisation == 'train':
  
     X_train, X_test, y_train, y_test = train_test_splitting(dataset_clean, "TARGET")
 
-    print(X_train.shape)
-    print(y_train.shape)
-    print(X_test.shape)
-    print(y_test.shape)
+    print("train test splitting:\n")
+    print("X_train:", X_train.shape)
+    print("y_train:",y_train.shape)
+    print("X_test:", X_test.shape)
+    print("y_test:", y_test.shape)
     
     train_normalized = normalization_data(1, X_train)
     test_normalized = normalization_data(1, X_test)
@@ -74,35 +77,39 @@ if modelisation == 'train':
     # undersampling train_normalized, y_train
     X_rus, y_rus = rus.fit_resample(train_normalized, y_train)
     # new TARGET class distribution
-    print(Counter(y_rus))
+    print("New target class distribution : \n", Counter(y_rus))
     
     classifier = model_training(RandomForestClassifier(), X_rus, y_rus)
     pickle.dump(classifier, open("../model/RDF_classifier.pkl", 'wb'))
+    print("Model saved in risk-classification/model folder \n")
     
     date =  datetime.datetime.now().strftime("%Hh%M_%d-%m-%Y")
     classifier =  pickle.load(open('../model/RDF_classifier.pkl', 'rb'))
     predictions = predict(classifier, test_normalized)
     run_metrics = get_metrics(y_test, predictions)
-    print(run_metrics)
+    print("Classification metrics :\n", run_metrics)
+    
     create_confusion_matrix_plot(classifier, y_test, predictions, '../output/confusion_matrix.png')
-
     export_prediction(test_normalized, predictions, "../output")
+    ("Predictions and confusion matrix available in risk-classification/output folder \n")
     
     date =  datetime.datetime.now().strftime("%Hh%M_%d-%m-%Y")   
     experiment_name = "RDF_classifier"+ date
     run_name="RDF_classifier"+date
     create_experiment(experiment_name, run_name, run_metrics, classifier, '../output/confusion_matrix.png' )
-
+    print("MLflow experiment available at http://127.0.0.1:5000/ \n")
+    
     while True:
         testing = str(input("Do you want to test the model ? :\n"))
         try:
-            assert testing in ["yes", "y", "oui"]
-            print(f'You choosed to test the model...')
+            assert testing in ["yes", "y", "oui", "non", "no", "n"]
+            print(f'You responded {testing} \n')
             break
         except AssertionError:
             pass
     
     if testing in ["yes", "y", "oui"]:
+        
         try:
             dataset_test = get_dataframe("test")
         except Exception as e:
@@ -110,29 +117,29 @@ if modelisation == 'train':
                 "No data to load : check file path"
             )
             
-    index_setting(dataset_test, "SK_ID_CURR")
-    
-    dataset_dummies_test = dummies_creation(dataset_test)
+        index_setting(dataset_test, "SK_ID_CURR")
+        
+        dataset_dummies_test = dummies_creation(dataset_test)
 
-    dataset_clean_test = remove_nan(dataset_dummies_test)
-    print(dataset_clean_test.shape)
-    
-    to_drop = ["CODE_GENDER_XNA","NAME_FAMILY_STATUS_Unknown", "NAME_INCOME_TYPE_Maternity" ]
-    for column in dataset_clean_test.columns:
-        if column in to_drop:
-            dataset_clean_test.drop(column, axis=1, inplace=True)
-            
-    test_normalized = normalization_data(1, dataset_clean_test)
-    
-    date =  datetime.datetime.now().strftime("%Hh%M_%d-%m-%Y")
-    classifier =  pickle.load(open('../model/RDF_classifier.pkl', 'rb'))
-    predictions_test = predict(classifier, test_normalized)
-    
-    export_prediction(test_normalized, predictions_test, "../pred_test")
-    
+        dataset_clean_test = remove_nan(dataset_dummies_test)
+        print("test dataset shape :\n", dataset_clean_test.shape)
+        
+        to_drop = ["CODE_GENDER_XNA","NAME_FAMILY_STATUS_Unknown", "NAME_INCOME_TYPE_Maternity" ]
+        for column in dataset_clean_test.columns:
+            if column in to_drop:
+                dataset_clean_test.drop(column, axis=1, inplace=True)
+                
+        test_normalized = normalization_data(1, dataset_clean_test)
+        
+        date =  datetime.datetime.now().strftime("%Hh%M_%d-%m-%Y")
+        classifier =  pickle.load(open('../model/RDF_classifier.pkl', 'rb'))
+        predictions_test = predict(classifier, test_normalized)
+        
+        export_prediction(test_normalized, predictions_test, "../pred_test")
+        print("Predictions available in risk-classification/pred_test folder\n")
 
-else:
-    print("no test atm")
+    else:
+        print(f'You responded {testing}, stopping the run...\n')
     
     
 
