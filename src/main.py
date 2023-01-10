@@ -77,7 +77,11 @@ if modelisation == 'train':
     # undersampling train_normalized, y_train
     X_rus, y_rus = rus.fit_resample(train_normalized, y_train)
     # new TARGET class distribution
+    print("undersampling \n")
     print("New target class distribution : \n", Counter(y_rus))
+    
+    print("X_rus:", X_train.shape)
+    print("y_rus:",y_train.shape)
     
     classifier = model_training(RandomForestClassifier(), X_rus, y_rus)
     pickle.dump(classifier, open("../model/RDF_classifier.pkl", 'wb'))
@@ -89,6 +93,7 @@ if modelisation == 'train':
     run_metrics = get_metrics(y_test, predictions)
     print("Classification metrics :\n", run_metrics)
     
+    print("Confusion Matrix :\n")
     create_confusion_matrix_plot(classifier, y_test, predictions, '../output/confusion_matrix.png')
     export_prediction(test_normalized, predictions, "../output")
     ("Predictions and confusion matrix available in risk-classification/output folder \n")
