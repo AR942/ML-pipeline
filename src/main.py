@@ -35,13 +35,13 @@ if modelisation == 'train':
     
     index_setting(dataset, "SK_ID_CURR")
     
-    dataset.NAME_TYPE_SUITE = map_function(dataset.NAME_TYPE_SUITE, 5000, "other_NAME_TYPE_SUITE")
+    """dataset.NAME_TYPE_SUITE = map_function(dataset.NAME_TYPE_SUITE, 5000, "other_NAME_TYPE_SUITE")
     dataset.NAME_INCOME_TYPE = map_function(dataset.NAME_INCOME_TYPE, 22000, "other_NAME_INCOME_TYPE")
     dataset.NAME_EDUCATION_TYPE = map_function(dataset.NAME_EDUCATION_TYPE, 5000, "other_NAME_EDUCATION_TYPE")
     dataset.NAME_FAMILY_STATUS = map_function(dataset.NAME_FAMILY_STATUS, 17000, "other_NAME_FAMILY_STATUS")
     dataset.NAME_HOUSING_TYPE = map_function(dataset.NAME_HOUSING_TYPE, 10000, "other_NAME_HOUSING_TYPE")
     dataset.ORGANIZATION_TYPE = map_function(dataset.ORGANIZATION_TYPE, 2500, "other_ORGANIZATION_TYPE")
-    dataset.ORGANIZATION_TYPE = map_function(dataset.ORGANIZATION_TYPE, 9000, "other2_ORGANIZATION_TYPE")
+    dataset.ORGANIZATION_TYPE = map_function(dataset.ORGANIZATION_TYPE, 9000, "other2_ORGANIZATION_TYPE")"""
     
     dataset_dummies = dummies_creation(dataset)
 
@@ -50,10 +50,14 @@ if modelisation == 'train':
     dataset_clean["TARGET"] = convert_column(dataset_clean["TARGET"], int)
     print(dataset_clean.shape)
     
+    
+    to_drop = ["CODE_GENDER_XNA","NAME_FAMILY_STATUS_Unknown", "NAME_INCOME_TYPE_Maternity leave" ]
+    for column in dataset_clean.columns:
+        if column in to_drop:
+            dataset_clean.drop(column, axis=1, inplace=True)
+    
  
     X_train, X_test, y_train, y_test = train_test_splitting(dataset_clean, "TARGET")
-
-    dataset_clean.shape
 
     print(X_train.shape)
     print(y_train.shape)
@@ -88,6 +92,44 @@ if modelisation == 'train':
     experiment_name = "RDF_classifier"+ date
     run_name="RDF_classifier"+date
     create_experiment(experiment_name, run_name, run_metrics, classifier, '../output/confusion_matrix.png' )
+
+    while True:
+        testing = str(input("Do you want to test the model ? :\n"))
+        try:
+            assert testing in ["yes", "y", "oui"]
+            print(f'You choosed to test the model...')
+            break
+        except AssertionError:
+            pass
+    
+    if testing in ["yes", "y", "oui"]:
+        try:
+            dataset_test = get_dataframe("test")
+        except Exception as e:
+            logging.exception(
+                "No data to load : check file path"
+            )
+            
+    index_setting(dataset_test, "SK_ID_CURR")
+    
+    dataset_dummies_test = dummies_creation(dataset_test)
+
+    dataset_clean_test = remove_nan(dataset_dummies_test)
+    print(dataset_clean_test.shape)
+    
+    to_drop = ["CODE_GENDER_XNA","NAME_FAMILY_STATUS_Unknown", "NAME_INCOME_TYPE_Maternity" ]
+    for column in dataset_clean_test.columns:
+        if column in to_drop:
+            dataset_clean_test.drop(column, axis=1, inplace=True)
+            
+    test_normalized = normalization_data(1, dataset_clean_test)
+    
+    date =  datetime.datetime.now().strftime("%Hh%M_%d-%m-%Y")
+    classifier =  pickle.load(open('../model/RDF_classifier.pkl', 'rb'))
+    predictions_test = predict(classifier, test_normalized)
+    
+    export_prediction(test_normalized, predictions_test, "../pred_test")
+    
 
 else:
     print("no test atm")
