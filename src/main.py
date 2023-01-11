@@ -87,7 +87,7 @@ if modelisation == 'train':
     pickle.dump(classifier, open("../model/RDF_classifier.pkl", 'wb'))
     print("Model saved in risk-classification/model folder \n")
     
-    date =  datetime.datetime.now().strftime("%Hh%M_%d-%m-%Y")
+    date =  datetime.datetime.now().strftime("%Y-%m-%d_%Hh%M")
     classifier =  pickle.load(open('../model/RDF_classifier.pkl', 'rb'))
     predictions = predict(classifier, test_normalized)
     run_metrics = get_metrics(y_test, predictions)
@@ -98,7 +98,7 @@ if modelisation == 'train':
     export_prediction(test_normalized, predictions, "../output")
     ("Predictions and confusion matrix available in risk-classification/output folder \n")
     
-    date =  datetime.datetime.now().strftime("%Hh%M_%d-%m-%Y")   
+    date =  datetime.datetime.now().strftime("%Y-%m-%d_%Hh%M")   
     experiment_name = "RDF_classifier"+ date
     run_name="RDF_classifier"+date
     create_experiment(experiment_name, run_name, run_metrics, classifier, '../output/confusion_matrix.png' )
@@ -136,7 +136,7 @@ if modelisation == 'train':
                 
         test_normalized = normalization_data(1, dataset_clean_test)
         
-        date =  datetime.datetime.now().strftime("%Hh%M_%d-%m-%Y")
+        date =  datetime.datetime.now().strftime("%Y-%m-%d_%Hh%M")
         classifier =  pickle.load(open('../model/RDF_classifier.pkl', 'rb'))
         predictions_test = predict(classifier, test_normalized)
         

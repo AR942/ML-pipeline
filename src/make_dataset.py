@@ -1,11 +1,4 @@
 import pandas as pd
-from glob import glob
-
-# --------------------------------------------------------------
-# List all data in data
-# --------------------------------------------------------------
-files = glob("../data/*csv")
-files
 
 
 def get_dataframe(data):
