@@ -14,6 +14,7 @@ first :
 >cd path/to/risk-classification-app
 
 then : 
+
 1 - create the venv for this project
 
 >python -m venv .venvarthus
@@ -31,7 +32,9 @@ then in your terminal run
 >mlflow ui --host http://127.0.0.1:5000
 
 troubleshoot : if you get mflow connexion error run this on your terminal 
-pkill -f gunicorn
+
+>pkill -f gunicorn
+
 and then run 
 
 >mlflow ui --host http://127.0.0.1:5000
