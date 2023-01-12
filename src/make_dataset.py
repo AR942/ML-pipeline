@@ -3,10 +3,10 @@ import pandas as pd
 def get_dataframe(data):
     
     if data == "train": 
-        df = pd.read_csv("../data/train.csv")
+        df = pd.read_csv("../data/application_train.csv")
         return df
     else:
-        df = pd.read_csv("../data/test.csv")
+        df = pd.read_csv("../data/application_test.csv")
         return df
     
 # --------------------------------------------------------------
