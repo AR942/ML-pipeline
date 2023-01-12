@@ -19,10 +19,10 @@ from ml_flow_tracking import create_experiment
 
 
 while True:
-    modelisation = str(input("Type train to modelise and test the model :\n"))
+    modelisation = str(input("Type train to modelise and test a model :\n"))
     try:
         assert modelisation in ["train", "TRAIN", "trai"]
-        print(f'You answerd {modelisation} Training the model...')
+        print(f'You answerd {modelisation} ,  Training a model...')
         break
     except AssertionError:
         pass
@@ -38,6 +38,9 @@ if modelisation in ["train", "TRAIN", "trai"]:
     
     index_setting(dataset, "SK_ID_CURR")
     
+    dataset = dataset[dataset.CODE_GENDER!="XNA"]
+    dataset.drop("ORGANIZATION_TYPE", axis = 1, inplace= True)
+    
     """dataset.NAME_TYPE_SUITE = map_function(dataset.NAME_TYPE_SUITE, 5000, "other_NAME_TYPE_SUITE")
     dataset.NAME_INCOME_TYPE = map_function(dataset.NAME_INCOME_TYPE, 22000, "other_NAME_INCOME_TYPE")
     dataset.NAME_EDUCATION_TYPE = map_function(dataset.NAME_EDUCATION_TYPE, 5000, "other_NAME_EDUCATION_TYPE")
@@ -48,17 +51,17 @@ if modelisation in ["train", "TRAIN", "trai"]:
 
     dataset_clean = remove_nan(dataset_dummies)
 
-    dataset_clean["TARGET"] = convert_column(dataset_clean["TARGET"], int)
-    print("training dataset shape:\n", dataset_clean.shape)
-    
-    
     """
     drop de certaines colonnes non nécéssaires en faisant une itération sur liste
     """
-    to_drop = ["CODE_GENDER_XNA","NAME_FAMILY_STATUS_Unknown", "NAME_INCOME_TYPE_Maternity leave", "ORGANIZATION_TYPE"]
+    to_drop = ["NAME_FAMILY_STATUS_Unknown", "NAME_INCOME_TYPE_Maternity leave", "ORGANIZATION_TYPE"]
     for column in dataset_clean.columns:
         if column in to_drop:
             dataset_clean.drop(column, axis=1, inplace=True)
+    
+    dataset_clean["TARGET"] = convert_column(dataset_clean["TARGET"], int)
+    print("training dataset shape:\n", dataset_clean.shape)
+    
     
  
     X_train, X_test, y_train, y_test = train_test_splitting(dataset_clean, "TARGET")
@@ -135,13 +138,18 @@ if modelisation in ["train", "TRAIN", "trai"]:
             )
             
         index_setting(dataset_test, "SK_ID_CURR")
+        dataset_test = dataset_test[dataset_test.CODE_GENDER!="XNA"]
+        dataset_test.drop("ORGANIZATION_TYPE", axis = 1, inplace= True)
         
         dataset_dummies_test = dummies_creation(dataset_test)
 
         dataset_clean_test = remove_nan(dataset_dummies_test)
         print("test dataset shape :\n", dataset_clean_test.shape)
         
-        to_drop = ["CODE_GENDER_XNA","NAME_FAMILY_STATUS_Unknown", "NAME_INCOME_TYPE_Maternity", "ORGANIZATION_TYPE"]
+        """
+        drop de certaines colonnes non nécéssaires en faisant une itération sur liste
+        """
+        to_drop = ["NAME_FAMILY_STATUS_Unknown", "NAME_INCOME_TYPE_Maternity leave", "ORGANIZATION_TYPE"]
         for column in dataset_clean_test.columns:
             if column in to_drop:
                 dataset_clean_test.drop(column, axis=1, inplace=True)
