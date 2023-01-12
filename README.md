@@ -19,7 +19,7 @@ then :
 
 >python -m venv .venvarthus
 
-2 - activate your conda environement
+2 - activate your virtual environement and choose latest python interpreter on vscode or pycharme for exemple
 
 >source .venvarthus/bin/activate
 
