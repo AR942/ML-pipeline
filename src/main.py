@@ -17,17 +17,18 @@ from model_training import train_test_splitting, normalization_data, model_train
 from predict import predict, get_metrics, create_confusion_matrix_plot, export_prediction
 from ml_flow_tracking import create_experiment 
 
+
 while True:
-    modelisation = str(input("Do you want to modelise a train or a test ? :\n"))
+    modelisation = str(input("Type train to modelise and test the model :\n"))
     try:
-        assert modelisation in ["train", "test"]
-        print(f'You choosed to {modelisation} the model...')
+        assert modelisation in ["train", "TRAIN", "trai"]
+        print(f'You answerd {modelisation} Training the model...')
         break
     except AssertionError:
         pass
 
-if modelisation == 'train':
     
+if modelisation in ["train", "TRAIN", "trai"]:
     try:
         dataset = get_dataframe("train")
     except Exception as e:
@@ -41,9 +42,7 @@ if modelisation == 'train':
     dataset.NAME_INCOME_TYPE = map_function(dataset.NAME_INCOME_TYPE, 22000, "other_NAME_INCOME_TYPE")
     dataset.NAME_EDUCATION_TYPE = map_function(dataset.NAME_EDUCATION_TYPE, 5000, "other_NAME_EDUCATION_TYPE")
     dataset.NAME_FAMILY_STATUS = map_function(dataset.NAME_FAMILY_STATUS, 17000, "other_NAME_FAMILY_STATUS")
-    dataset.NAME_HOUSING_TYPE = map_function(dataset.NAME_HOUSING_TYPE, 10000, "other_NAME_HOUSING_TYPE")
-    dataset.ORGANIZATION_TYPE = map_function(dataset.ORGANIZATION_TYPE, 2500, "other_ORGANIZATION_TYPE")
-    dataset.ORGANIZATION_TYPE = map_function(dataset.ORGANIZATION_TYPE, 9000, "other2_ORGANIZATION_TYPE")"""
+    dataset.NAME_HOUSING_TYPE = map_function(dataset.NAME_HOUSING_TYPE, 10000, "other_NAME_HOUSING_TYPE")"""
     
     dataset_dummies = dummies_creation(dataset)
 
@@ -53,7 +52,10 @@ if modelisation == 'train':
     print("training dataset shape:\n", dataset_clean.shape)
     
     
-    to_drop = ["CODE_GENDER_XNA","NAME_FAMILY_STATUS_Unknown", "NAME_INCOME_TYPE_Maternity leave" ]
+    """
+    drop de certaines colonnes non nécéssaires en faisant une itération sur liste
+    """
+    to_drop = ["CODE_GENDER_XNA","NAME_FAMILY_STATUS_Unknown", "NAME_INCOME_TYPE_Maternity leave", ["ORGANIZATION_TYPE"] ]
     for column in dataset_clean.columns:
         if column in to_drop:
             dataset_clean.drop(column, axis=1, inplace=True)
@@ -70,6 +72,7 @@ if modelisation == 'train':
     train_normalized = normalization_data(1, X_train)
     test_normalized = normalization_data(1, X_test)
     
+    
     """
     inbalance target class distribution : using undersampling method
     """
@@ -83,6 +86,7 @@ if modelisation == 'train':
     print("X_rus:", X_train.shape)
     print("y_rus:",y_train.shape)
     
+    """fitting of model and pickle """
     classifier = model_training(RandomForestClassifier(), X_rus, y_rus)
     pickle.dump(classifier, open("../model/RDF_classifier.pkl", 'wb'))
     print("Model saved in risk-classification/model folder \n")
@@ -98,11 +102,19 @@ if modelisation == 'train':
     export_prediction(test_normalized, predictions, "../output")
     ("Predictions and confusion matrix available in risk-classification/output folder \n")
     
-    date =  datetime.datetime.now().strftime("%Y-%m-%d_%Hh%M")   
-    experiment_name = "RDF_classifier"+ date
-    run_name="RDF_classifier"+date
-    create_experiment(experiment_name, run_name, run_metrics, classifier, '../output/confusion_matrix.png' )
-    print("MLflow experiment available at http://127.0.0.1:5000/ \n")
+    
+    experiment = str(input(" do an experiment with mlflow ? :\n"))
+    if experiment in ["yes", "y", "oui"]:
+        print('experiment launching...')
+        date =  datetime.datetime.now().strftime("%Y-%m-%d_%Hh%M")   
+        experiment_name = "RDF_classifier" + date
+        run_name="RDF_classifier" + date
+        create_experiment(experiment_name, run_name, run_metrics, classifier, '../output/confusion_matrix.png' )
+        print("MLflow experiment available at http://127.0.0.1:5000/ \n")
+        
+    else:
+        print('no experiment')
+        pass
     
     while True:
         testing = str(input("Do you want to test the model ? :\n"))
@@ -129,7 +141,7 @@ if modelisation == 'train':
         dataset_clean_test = remove_nan(dataset_dummies_test)
         print("test dataset shape :\n", dataset_clean_test.shape)
         
-        to_drop = ["CODE_GENDER_XNA","NAME_FAMILY_STATUS_Unknown", "NAME_INCOME_TYPE_Maternity" ]
+        to_drop = ["CODE_GENDER_XNA","NAME_FAMILY_STATUS_Unknown", "NAME_INCOME_TYPE_Maternity", ["ORGANIZATION_TYPE"] ]
         for column in dataset_clean_test.columns:
             if column in to_drop:
                 dataset_clean_test.drop(column, axis=1, inplace=True)

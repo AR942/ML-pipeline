@@ -1,7 +1,7 @@
 import pandas as pd
 
-
 def get_dataframe(data):
+    
     if data == "train": 
         df = pd.read_csv("../data/train.csv")
         return df

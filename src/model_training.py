@@ -6,7 +6,6 @@ from sklearn.ensemble import RandomForestClassifier
 from sklearn.metrics import confusion_matrix
 import pickle
 
-"""from features_engineering import dataset_clean"""
 
 def train_test_splitting(df, target):
     
@@ -20,7 +19,10 @@ def train_test_splitting(df, target):
 
 
 def normalization_data(norm, data):
-    
+    """
+    on normalise la donnée rester dans une range de value 
+    evite de biaiser le model
+    """
     cols_to_scale = [column for column in data.columns]
     
     if norm==1:
@@ -41,23 +43,6 @@ def model_training(model, X_train, y_train):
     return model
 
 
-"""train = True
-
-if train:
-    X_train, X_test, y_train, y_test = train_test_splitting(dataset_clean, "TARGET")
-
-    dataset_clean.shape
-
-    print(X_train.shape)
-    print(y_train.shape)
-    print(X_test.shape)
-    print(y_test.shape)
-    
-    train_normalized = normalization_data(1, X_train)
-    test_normalized = normalization_data(1, X_test)
-    
-    classifier = model_training(RandomForestClassifier(), train_normalized, y_train)
-    pickle.dump(classifier, open("../model/RDF_classifier.pkl", 'wb'))"""
 
 
     

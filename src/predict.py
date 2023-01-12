@@ -37,12 +37,5 @@ def export_prediction(data, predict, path):
 
     prediction_final.to_csv(os.path.join(path, "predictions-"+ date +".csv"))
 
-"""date =  datetime.datetime.now().strftime("%Hh%M_%d-%m-%Y")
-classifier =  pickle.load(open('../model/RDF_classifier.pkl', 'rb'))
-predictions = predict(classifier, test_normalized)
-run_metrics = get_metrics(y_test, predictions)
-print(run_metrics)
-create_confusion_matrix_plot(classifier, y_test, predictions, '../output/confusion_matrix.png')
 
-export_prediction(test_normalized, predictions, "../output")"""
 
