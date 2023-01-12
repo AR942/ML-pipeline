@@ -55,7 +55,7 @@ if modelisation in ["train", "TRAIN", "trai"]:
     """
     drop de certaines colonnes non nécéssaires en faisant une itération sur liste
     """
-    to_drop = ["CODE_GENDER_XNA","NAME_FAMILY_STATUS_Unknown", "NAME_INCOME_TYPE_Maternity leave", ["ORGANIZATION_TYPE"] ]
+    to_drop = ["CODE_GENDER_XNA","NAME_FAMILY_STATUS_Unknown", "NAME_INCOME_TYPE_Maternity leave", "ORGANIZATION_TYPE"]
     for column in dataset_clean.columns:
         if column in to_drop:
             dataset_clean.drop(column, axis=1, inplace=True)
@@ -141,7 +141,7 @@ if modelisation in ["train", "TRAIN", "trai"]:
         dataset_clean_test = remove_nan(dataset_dummies_test)
         print("test dataset shape :\n", dataset_clean_test.shape)
         
-        to_drop = ["CODE_GENDER_XNA","NAME_FAMILY_STATUS_Unknown", "NAME_INCOME_TYPE_Maternity", ["ORGANIZATION_TYPE"] ]
+        to_drop = ["CODE_GENDER_XNA","NAME_FAMILY_STATUS_Unknown", "NAME_INCOME_TYPE_Maternity", "ORGANIZATION_TYPE"]
         for column in dataset_clean_test.columns:
             if column in to_drop:
                 dataset_clean_test.drop(column, axis=1, inplace=True)
