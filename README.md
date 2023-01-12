@@ -15,7 +15,7 @@ first :
 
 then : 
 
-1 - create the venv for this project (first pip install virtualenv)
+1 - create the virtual environement for this project (first pip install virtualenv)
 
 >python -m venv .venvarthus
 
