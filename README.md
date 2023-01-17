@@ -7,7 +7,7 @@ You may also use a reduced version of these datasets
 download these datasets
 
 put them in risk-classification/data folder
-
+Note :  python used for this project is 3.10.8
 
 first : 
 
@@ -46,3 +46,8 @@ then
 and run:
 
 >python main.py
+
+
+Full running : 
+
+https://postimg.cc/jwMzRbZW
