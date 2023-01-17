@@ -48,6 +48,9 @@ and run:
 >python main.py
 
 
+[ici](notebook/notebook-avec-shap.ipynb)
+
+
 Full process with pictures : 
 
 
