@@ -2,7 +2,7 @@
 
 
 
-## Les datasets nécéssaires se trouvent sur ce lien : https://www.kaggle.com/c/home-credit-default-risk/data
+## Les datasets requis pour ce projet se trouvent sur ce lien : https://www.kaggle.com/c/home-credit-default-risk/data
 ### Seuls les datasets application_train.csv et application_test.csv seront utilisés dans ce projet
 
 
