@@ -12,7 +12,8 @@
 download these datasets
 
 put them in risk-classification/data folder
-Note :  python used for this project is 3.10.8
+
+### Note :  python version used for this project is 3.10.8
 
 first : 
 
@@ -46,7 +47,7 @@ and then run
 
 then 
 
->cd src folder in risk-classification app 
+>cd risk-classification/src
 
 and run:
 
