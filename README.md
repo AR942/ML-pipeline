@@ -1,8 +1,10 @@
+# Projet de classification de risques financiers avec la création d'une pipeline ML en utilisant MLFLOW et Shap dans 
 
-DataSet (Finance use case)
-DataSet of Home Credit Risk Classification: https://www.kaggle.com/c/home-credit-default-risk/data
-you'll not use all the datasets available on Kaggle, only the main data set:⇒application_train.csv⇒application_test.csv
-You may also use a reduced version of these datasets
+
+
+## Les datasets nécéssaires se trouvent sur ce lien : https://www.kaggle.com/c/home-credit-default-risk/data
+### Seuls les datasets application_train.csv et application_test.csv seront utilisés dans ce projet
+
 
 
 # Marche à suivre pour lancer la pipeline ML
