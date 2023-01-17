@@ -49,8 +49,8 @@ and run:
 
 
 ## Pour les visualisations avec shap, voici le [notebook](notebook/notebook-avec-shap.ipynb)
+Les images des visualisations shap sont disponibles [ici](shap-plots)
 
-# Les images des visualisations shap sont disponibles [ici](shap-plots)
 
 
 
