@@ -50,11 +50,12 @@ and run:
 
 ## Pour les visualisations avec shap, voici le [notebook](notebook/notebook-avec-shap.ipynb)
 
-Les images des visualisations shap sont disponibles [ici](shap-plots)
+# Les images des visualisations shap sont disponibles [ici](shap-plots)
 
 
 
-Full process with pictures : 
+
+### Full process run of the ML pipeline with pictures : 
 
 
 ![image](https://i.postimg.cc/kGpwbN7k/Capture-d-e-cran-2023-01-17-a-17-01-56.png)
