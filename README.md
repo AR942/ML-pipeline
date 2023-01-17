@@ -1,4 +1,4 @@
-# Projet de classification de risques financiers avec la création d'une pipeline ML en utilisant MLFLOW et Shap dans 
+# Projet de classification binaire de risques financiers avec la création d'une pipeline ML en utilisant MLFLOW et Shap dans 
 
 
 
