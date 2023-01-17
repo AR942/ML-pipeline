@@ -4,6 +4,9 @@ DataSet of Home Credit Risk Classification: https://www.kaggle.com/c/home-credit
 you'll not use all the datasets available on Kaggle, only the main data set:⇒application_train.csv⇒application_test.csv
 You may also use a reduced version of these datasets
 
+
+# Marche à suivre pour lancer la pipeline ML
+
 download these datasets
 
 put them in risk-classification/data folder
@@ -48,8 +51,8 @@ and run:
 >python main.py
 
 
-## Pour les visualisations avec shap, voici le [notebook](notebook/notebook-avec-shap.ipynb)
-# Les images des visualisations shap sont disponibles [ici](shap-plots)
+# Pour les visualisations avec shap, voici le [notebook](notebook/notebook-avec-shap.ipynb)
+## Les images des visualisations shap sont disponibles [ici](shap-plots)
 
 
 
