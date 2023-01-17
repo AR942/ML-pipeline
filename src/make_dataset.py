@@ -1,6 +1,9 @@
 import pandas as pd
 
 def get_dataframe(data):
+    """
+    fonction qui nous permet de load un dataset
+    """
     
     if data == "train": 
         df = pd.read_csv("../data/application_train.csv")
