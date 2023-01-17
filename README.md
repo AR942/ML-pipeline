@@ -37,7 +37,7 @@ then in your terminal run
 
 >mlflow ui --host http://127.0.0.1:5000
 
-troubleshoot : if you get mflow connexion error run this on your terminal 
+Troubleshoot : if you get mflow connexion error run this on your terminal 
 
 >pkill -f gunicorn
 
@@ -45,11 +45,13 @@ and then run
 
 >mlflow ui --host http://127.0.0.1:5000
 
-then 
+4- Run the ML Pipeline
+
+Go to the src folder inside the project
 
 >cd risk-classification/src
 
-and run:
+Run the file main.py:
 
 >python main.py
 
