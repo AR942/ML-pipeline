@@ -48,6 +48,9 @@ and run:
 >python main.py
 
 
+Full process with pictures : 
+
+
 ![image](https://i.postimg.cc/kGpwbN7k/Capture-d-e-cran-2023-01-17-a-17-01-56.png)
 
 ![image](https://i.postimg.cc/257wwNzd/Capture-d-e-cran-2023-01-17-a-17-03-35.png)
