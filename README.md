@@ -6,12 +6,12 @@ You may also use a reduced version of these datasets
 
 download these datasets
 
-put them in ML-pipeline/data folder
+put them in risk-classification/data folder
 
 
 first : 
 
->cd path/to/ML-pipeline
+>cd path/to/risk-classification
 
 then : pip install virtualenv
 
@@ -41,7 +41,7 @@ and then run
 
 then 
 
->cd src folder in risk classification app 
+>cd src folder in risk-classification app 
 
 and run:
 
