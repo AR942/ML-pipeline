@@ -48,5 +48,5 @@ and run:
 >python main.py
 
 
-![image](https://i.postimg.cc/hGXD8c86/Capture-d-e-cran-2023-01-17-a-17-01-56.png)
+![ScreenShot](https://i.postimg.cc/kGpwbN7k/Capture-d-e-cran-2023-01-17-a-17-01-56.png)
 
