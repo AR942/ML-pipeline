@@ -48,11 +48,4 @@ and run:
 >python main.py
 
 
-Full running : 
 
-![image](https://i.postimg.cc/0jsZd5SC/Capture-d-e-cran-2023-01-17-a-17-01-56.png)
-
-![image](https://i.postimg.cc/0jsZd5SC/Capture-d-e-cran-2023-01-17-a-17-01-56.png)
-
-
-![ScreenShot](/shap-plots/Capture d’écran 2023-01-12 à 15.47.24.png)
