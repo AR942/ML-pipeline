@@ -13,7 +13,7 @@ download these datasets
 
 put them in risk-classification/data folder
 
-### Note :  python version used for this project is 3.10.8
+### Note :  La version python utilisée dans ce projet est Python 3.10.8 
 
 first : 
 
