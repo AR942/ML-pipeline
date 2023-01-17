@@ -36,7 +36,9 @@ if modelisation in ["train", "TRAIN", "trai"]:
             "No data to load : check file path"
         )
     
+    #on set l'index
     index_setting(dataset, "SK_ID_CURR")
+    
     
     dataset = dataset[dataset.CODE_GENDER!="XNA"]
     dataset.drop("ORGANIZATION_TYPE", axis = 1, inplace= True)
@@ -47,23 +49,25 @@ if modelisation in ["train", "TRAIN", "trai"]:
     dataset.NAME_FAMILY_STATUS = map_function(dataset.NAME_FAMILY_STATUS, 17000, "other_NAME_FAMILY_STATUS")
     dataset.NAME_HOUSING_TYPE = map_function(dataset.NAME_HOUSING_TYPE, 10000, "other_NAME_HOUSING_TYPE")"""
     
+    #One hot encoding des variables catégoriques
     dataset_dummies = dummies_creation(dataset)
-
+    
+    #Retire les colonnes contenant trop de valeurs manquantes
+    #remplace les valeurs manquantes restantes par la médiane de la colonne
     dataset_clean = remove_nan(dataset_dummies)
 
-    """
-    drop de certaines colonnes non nécéssaires en faisant une itération sur liste
-    """
+    
+    #drop de certaines colonnes non nécéssaires en faisant une itération sur liste
     to_drop = ["NAME_FAMILY_STATUS_Unknown", "NAME_INCOME_TYPE_Maternity leave", "ORGANIZATION_TYPE"]
     for column in dataset_clean.columns:
         if column in to_drop:
             dataset_clean.drop(column, axis=1, inplace=True)
     
+    #On enlève le float de la target pour faciliter la lecture
     dataset_clean["TARGET"] = convert_column(dataset_clean["TARGET"], int)
     print("training dataset shape:\n", dataset_clean.shape)
     
-    
- 
+    #train test splitting de notre dataset nettoyé
     X_train, X_test, y_train, y_test = train_test_splitting(dataset_clean, "TARGET")
 
     print("train test splitting:\n")
@@ -72,13 +76,12 @@ if modelisation in ["train", "TRAIN", "trai"]:
     print("X_test:", X_test.shape)
     print("y_test:", y_test.shape)
     
+    #normalisation des données pour éviter les biais sur certains modèles 
     train_normalized = normalization_data(1, X_train)
     test_normalized = normalization_data(1, X_test)
     
     
-    """
-    inbalance target class distribution : using undersampling method
-    """
+    #Undersampling de nos données train car la target est imbalanced
     rus = RandomUnderSampler() 
     # undersampling train_normalized, y_train
     X_rus, y_rus = rus.fit_resample(train_normalized, y_train)
@@ -89,11 +92,14 @@ if modelisation in ["train", "TRAIN", "trai"]:
     print("X_rus:", X_train.shape)
     print("y_rus:",y_train.shape)
     
-    """fitting of model and pickle """
+    
+    #entraineemnt du modele et picle dans le folder /model
     classifier = model_training(RandomForestClassifier(), X_rus, y_rus)
     pickle.dump(classifier, open("../model/RDF_classifier.pkl", 'wb'))
     print("Model saved in risk-classification/model folder \n")
     
+    
+    #Prédictions et évaluation de notre modele sur le dataset test + export des predictions en csv
     date =  datetime.datetime.now().strftime("%Y-%m-%d_%Hh%M")
     classifier =  pickle.load(open('../model/RDF_classifier.pkl', 'rb'))
     predictions = predict(classifier, test_normalized)
@@ -105,7 +111,7 @@ if modelisation in ["train", "TRAIN", "trai"]:
     export_prediction(test_normalized, predictions, "../output")
     ("Predictions and confusion matrix available in risk-classification/output folder \n")
     
-    
+    #Run un experiment mlflow
     experiment = str(input(" do an experiment with mlflow ? :\n"))
     if experiment in ["yes", "y", "oui"]:
         print('experiment launching...')
@@ -119,6 +125,7 @@ if modelisation in ["train", "TRAIN", "trai"]:
         print('no experiment')
         pass
     
+    #test de notre modele sur des nouvelles données test application_test.csv
     while True:
         testing = str(input("Do you want to test the model ? :\n"))
         try:
