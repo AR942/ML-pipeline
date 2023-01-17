@@ -14,6 +14,7 @@ download these datasets
 put them in risk-classification/data folder
 
 ### Note :  La version python utilisée dans ce projet est Python 3.10.8 
+#### Tout les scripts de la pipeline ML se trouvent [ici](src)
 
 first : 
 
