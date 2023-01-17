@@ -50,4 +50,4 @@ and run:
 
 Full running : 
 
-![image](https://i.postimg.cc/0jsZd5SC/Capture-d-e-cran-2023-01-17-a-17-01-56.png)
+![Alt text](http://full/path/to/img.jpg](https://i.postimg.cc/0jsZd5SC/Capture-d-e-cran-2023-01-17-a-17-01-56.png)
