@@ -8,6 +8,9 @@ import pickle
 
 
 def train_test_splitting(df, target):
+    """
+    Train test splitting de nos données d'entrainement pour entraine et évaluer un modele
+    """
     
     X = df.drop(target, axis = 1)
     y = df[target]
@@ -37,7 +40,9 @@ def normalization_data(norm, data):
 
 
 def model_training(model, X_train, y_train):
-    
+    """
+    Entrainement du modele
+    """
     model.fit(X_train,y_train)
     
     return model
