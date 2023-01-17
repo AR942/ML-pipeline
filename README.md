@@ -56,8 +56,6 @@ and run:
 
 ![image](https://i.postimg.cc/zDckpj1Q/Capture-d-e-cran-2023-01-17-a-17-13-10-min.png)
 
-![image](https://i.postimg.cc/sXfJHHXk/Capture-d-e-cran-2023-01-17-a-17-16-44-min.png)
-
 ![image](https://i.postimg.cc/0jb0P67Z/Capture-d-e-cran-2023-01-17-a-17-17-39-min.png)
 
 ![image](https://i.postimg.cc/BQPBzKSn/Capture-d-e-cran-2023-01-17-a-17-17-55-min.png)
