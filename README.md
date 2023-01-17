@@ -48,7 +48,10 @@ and run:
 >python main.py
 
 
-[ici](notebook/notebook-avec-shap.ipynb)
+## Pour les visualisations avec shap, voici le [notebook](notebook/notebook-avec-shap.ipynb)
+
+Les images des visualisations shap sont disponibles [ici](shap-plots)
+
 
 
 Full process with pictures : 
