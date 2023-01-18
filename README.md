@@ -36,7 +36,7 @@ then : pip install virtualenv
 
 then in your terminal run 
 
->mlflow ui --host http://127.0.0.1:5000
+>mlflow ui
 
 Troubleshoot : if you get mflow connexion error run this on your terminal 
 
