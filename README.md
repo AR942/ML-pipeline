@@ -9,7 +9,7 @@
 
 # Marche à suivre pour lancer la pipeline ML
 
-download these datasets
+download these 2 datasets
 
 put them in risk-classification/data folder
 
