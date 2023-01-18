@@ -1,5 +1,9 @@
 # Projet de classification binaire de risques financiers avec la création d'une pipeline ML en utilisant MLFLOW et Shap dans 
 
+## Groupe DE2
+### Arthus ROUHI
+### Adam SOUSSOU
+### Lucas BENYAMIN
 
 
 ## Les datasets requis pour ce projet se trouvent sur ce lien : https://www.kaggle.com/c/home-credit-default-risk/data
