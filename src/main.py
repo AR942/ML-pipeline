@@ -112,7 +112,7 @@ if modelisation in ["train", "TRAIN", "trai"]:
     ("Predictions and confusion matrix available in risk-classification/output folder \n")
     
     #Run un experiment mlflow
-    experiment = str(input(" do an experiment with mlflow ? :\n"))
+    experiment = str(input(" Type yes if you want to do an mlflow experiment :\n"))
     if experiment in ["yes", "y", "oui"]:
         print('experiment launching...')
         date =  datetime.datetime.now().strftime("%Y-%m-%d_%Hh%M")   
@@ -127,7 +127,7 @@ if modelisation in ["train", "TRAIN", "trai"]:
     
     #test de notre modele sur des nouvelles données test application_test.csv
     while True:
-        testing = str(input("Do you want to test the model ? :\n"))
+        testing = str(input("Do you want to test the model ? Type yes :\n"))
         try:
             assert testing in ["yes", "y", "oui", "non", "no", "n"]
             print(f'You responded {testing} \n')
