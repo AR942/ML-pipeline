@@ -12,7 +12,7 @@ warnings.filterwarnings("ignore")
 
 from make_dataset import get_dataframe, index_setting
 from data_preparation import map_function
-from features_engineering import remove_nan, dummies_creation, convert_column
+from features_engineering import dummies_creation, convert_column, drop_nan30, remove_nan
 from model_training import train_test_splitting, normalization_data, model_training
 from predict import predict, get_metrics, create_confusion_matrix_plot, export_prediction
 from ml_flow_tracking import create_experiment 
@@ -52,7 +52,10 @@ if modelisation in ["train", "TRAIN", "trai"]:
     #One hot encoding des variables catégoriques
     dataset_dummies = dummies_creation(dataset)
     
+    
     #Retire les colonnes contenant trop de valeurs manquantes
+    dataset_dummies = drop_nan30(dataset_dummies)
+    
     #remplace les valeurs manquantes restantes par la médiane de la colonne
     dataset_clean = remove_nan(dataset_dummies)
 
@@ -89,8 +92,8 @@ if modelisation in ["train", "TRAIN", "trai"]:
     print("undersampling \n")
     print("New target class distribution : \n", Counter(y_rus))
     
-    print("X_rus:", X_train.shape)
-    print("y_rus:",y_train.shape)
+    print("X undersampled:", X_rus.shape)
+    print("y undersampled:", y_rus.shape)
     
     
     #entraineemnt du modele et picle dans le folder /model
@@ -149,19 +152,25 @@ if modelisation in ["train", "TRAIN", "trai"]:
         dataset_test.drop("ORGANIZATION_TYPE", axis = 1, inplace= True)
         
         dataset_dummies_test = dummies_creation(dataset_test)
+        
+        #Retire les colonnes contenant trop de valeurs manquantes
+        dataset_dummies_test = drop_nan30(dataset_dummies_test)
 
         dataset_clean_test = remove_nan(dataset_dummies_test)
         print("test dataset shape :\n", dataset_clean_test.shape)
         
-        """
-        drop de certaines colonnes non nécéssaires en faisant une itération sur liste
-        """
+        
+        #drop de certaines colonnes non nécéssaires en faisant une itération sur liste
         to_drop = ["NAME_FAMILY_STATUS_Unknown", "NAME_INCOME_TYPE_Maternity leave", "ORGANIZATION_TYPE"]
         for column in dataset_clean_test.columns:
             if column in to_drop:
                 dataset_clean_test.drop(column, axis=1, inplace=True)
                 
         test_normalized = normalization_data(1, dataset_clean_test)
+        
+        #On garde seulement les colonnes vues dans le fit
+        cols_en_commun = [col for col in X_rus.columns]
+        test_normalized = test_normalized[cols_en_commun]
         
         date =  datetime.datetime.now().strftime("%Y-%m-%d_%Hh%M")
         classifier =  pickle.load(open('../model/RDF_classifier.pkl', 'rb'))
@@ -174,6 +183,15 @@ if modelisation in ["train", "TRAIN", "trai"]:
         print(f'You responded {testing}, stopping the run...\n')
     
     
+
+
+
+
+
+
+
+
+
 
 """import os
   
