@@ -60,6 +60,8 @@ Run the file main.py:
 
 >python main.py
 
+##Vous devez répondre aux questions posées dans le terminal pour avancer dans le programme
+
 
 # Pour les visualisations avec shap, voici le [notebook](notebook/notebook-avec-shap.ipynb)
 ## Les images des visualisations shap sont disponibles [ici](shap-plots)
