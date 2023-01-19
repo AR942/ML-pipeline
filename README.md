@@ -38,7 +38,7 @@ then : pip install virtualenv
 
 >pip install -r requirements.txt
 
-then in your terminal run mlflow (host HAS To be http://127.0.0.1:5000/)
+then in another terminal run mlflow (host HAS To be http://127.0.0.1:5000/)
 
 >mlflow ui
 
