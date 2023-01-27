@@ -34,7 +34,7 @@ then : pip install virtualenv
 
 >source .venvarthus/bin/activate
 
-3- install packages requirements for the project inside your venv
+3- install packages requirements for the project inside your venv (done with pip freeze)
 
 >pip install -r requirements.txt
 
