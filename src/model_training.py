@@ -28,10 +28,10 @@ def normalization_data(norm, data):
     """
     cols_to_scale = [column for column in data.columns]
     
-    if norm==1:
-        scale=StandardScaler()
+    if norm == 1:
+        scale = StandardScaler()
     else:
-        scale=MinMaxScaler()
+        scale = MinMaxScaler()
         
     scale.fit(data[cols_to_scale])
     data[cols_to_scale] = scale.transform(data[cols_to_scale])
