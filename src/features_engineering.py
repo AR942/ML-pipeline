@@ -2,6 +2,14 @@ import pandas as pd
 import sys
 from sklearn.impute import SimpleImputer
 from sklearn.preprocessing import StandardScaler, MinMaxScaler
+import re
+import nltk
+from nltk.corpus import stopwords
+nltk.download("stopwords")
+import string
+from nltk.tokenize import word_tokenize
+from nltk.stem import WordNetLemmatizer, PorterStemmer
+
 
 def missing_values(df):
     """
