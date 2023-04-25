@@ -55,3 +55,46 @@ def convert_column(column : pd.Series, type):
     """
     column = column.astype(type)
     return column
+
+
+
+def preprocess_text(text):
+    #enlever la poncutation
+    text = text.translate(str.maketrans('', '', string.punctuation))
+
+    #lowercase pour facilitation
+    text = text.lower()
+
+    #traitement des valeurs textuelles non voulues
+    text = re.sub(r'\d+', '', text)
+    text = re.sub(r'[^\x00-\x7F]+', '', text)
+
+
+    text = text.replace('[^\w\s]', '')
+    text = text.replace('\r', '')
+    text = text.replace('\n', '')
+    
+    #tokenisation
+    tokens = word_tokenize(text)
+
+    #enlever les stopwerds anglais
+    """stopwords = set(stopwords.words('english'))
+    text = text.apply(lambda x: ' '.join([word for word in x.split() if word not in stopwords]))"""
+    stop_words = set(stopwords.words('english'))
+    tokens = [w for w in tokens if not w in stop_words]
+    
+    #Lemmatisation
+    lemmatizer = WordNetLemmatizer()
+    tokens = [lemmatizer.lemmatize(token) for token in tokens]
+    
+    #Racinisation
+    stemmer = PorterStemmer()
+    tokens = [stemmer.stem(token) for token in tokens]
+
+
+    #remettre sous forme de string
+    text = ' '.join(tokens)
+
+    return text
+
+df.Synopsis = df.Synopsis.apply(preprocess_text)
