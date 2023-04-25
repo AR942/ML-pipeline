@@ -106,3 +106,50 @@ def preprocess_text(text):
     return text
 
 df.Synopsis = df.Synopsis.apply(preprocess_text)
+
+
+
+import pandas as pd
+import re
+from nltk.stem import WordNetLemmatizer
+from nltk.corpus import stopwords
+from sklearn.feature_extraction.text import TfidfVectorizer
+
+def preprocess_subject(df):
+    # Nettoyer les données
+    cleaned_subjects = []
+    for subject in df['subject']:
+        subject = re.sub('[^a-zA-Z]', ' ', subject)
+        subject = subject.lower()
+        cleaned_subjects.append(subject)
+    df['subject'] = cleaned_subjects
+
+    # Lemmatisation et suppression des stopwords
+    lemmatizer = WordNetLemmatizer()
+    stop_words = stopwords.words('english')
+    lemmatized_subjects = []
+    for subject in df['subject']:
+        words = subject.split()
+        lemmatized_words = [lemmatizer.lemmatize(word) for word in words if word not in stop_words]
+        lemmatized_subjects.append(' '.join(lemmatized_words))
+    df['subject'] = lemmatized_subjects
+
+    # Création de fonctionnalités
+    subject_lengths = []
+    num_words = []
+    num_uppercase = []
+    for subject in df['subject']:
+        subject_lengths.append(len(subject))
+        num_words.append(len(subject.split()))
+        num_uppercase.append(sum(1 for c in subject if c.isupper()))
+    df['subject_length'] = subject_lengths
+    df['num_words'] = num_words
+    df['num_uppercase'] = num_uppercase
+
+    # Vectorisation
+    tfidf = TfidfVectorizer()
+    X = tfidf.fit_transform(df['subject'])
+
+    # Retourner la matrice de caractéristiques et le DataFrame mis à jour
+    return X, df[['subject_length', 'num_words', 'num_uppercase']]
+
