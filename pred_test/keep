@@ -1,0 +1,1 @@
+see['is_iut'] = see['dlpfilename'].str.contains(r'\b(?:{})\b'.format('|'.join(kw_vp)), case=False ,regex=True, na=False).astype(int)
